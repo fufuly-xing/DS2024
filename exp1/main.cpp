@@ -17,7 +17,7 @@ public:
 };
 bool operator>(const Complex a, const Complex b)
 {
-    return ((a.getmodulus() > b.getmodulus()) ||(a.getmodulus() == b.getmodulus() &&a.real > b.real)); // ÓÅÏÈ±È½ÏÏòÁ¿Ä££¬ÈôÄ£ÏàÍ¬±È½ÏÊµ²¿
+    return ((a.getmodulus() > b.getmodulus()) ||(a.getmodulus() == b.getmodulus() &&a.real > b.real)); // ä¼˜å…ˆæ¯”è¾ƒå‘é‡æ¨¡ï¼Œè‹¥æ¨¡ç›¸åŒæ¯”è¾ƒå®éƒ¨
 }
 bool operator==(const Complex a, const Complex b) {
     return (a.real==b.real&&a.imag==b.imag);
@@ -57,27 +57,27 @@ template <typename T> void Vector<T>:: print() {
     for(int i=0;i<10;i++)
         cout << _elem[i]<< endl;
 }
-// ²âÊÔÅÅĞòĞ§ÂÊ
+// æµ‹è¯•æ’åºæ•ˆç‡
 void test_time(Vector<Complex>& v)
 {
     Vector<Complex> v1 = v;
     Vector<Complex> v2 = v;
     clock_t start, end;
     double spendtime;
-    // Ã°ÅİÅÅĞò
+    // å†’æ³¡æ’åº
     start = clock();
     Vector<Complex> bubbleSort(v1, 0, v1.size());
     end = clock();
     spendtime = ((double)(end - start) / CLOCKS_PER_SEC);
     cout << "Bubble Sort took " << spendtime << " seconds" << endl;
-    // ¹é²¢ÅÅĞò
+    // å½’å¹¶æ’åº
     start = clock();
     Vector<Complex> mergeSort(v2, 0, v2.size());
     end = clock();
     spendtime = ((double)(end - start) / CLOCKS_PER_SEC);
     cout << "Merge Sort took " << spendtime << " seconds" << endl;
 }
-// ì³²¨ÄÇÆõ²éÕÒ
+// æ–æ³¢é‚£å¥‘æŸ¥æ‰¾
 int fibsearch(Vector<Complex>& A, double e)
 {
     int lo = 0, hi = A.size();
@@ -96,7 +96,7 @@ int fibsearch(Vector<Complex>& A, double e)
     }
     return -1;
 }
-// Çø¼ä²éÕÒ
+// åŒºé—´æŸ¥æ‰¾
 Vector<Complex> findInRange(Vector<Complex>& v, double m1, double m2)
 {
     Vector<Complex> res;
@@ -114,60 +114,60 @@ int main()
 {
     const int SAMPLE_NUMBER = 10;
     Vector<Complex> cv;
-    // Éú³ÉÒ»¸öÎŞĞòµÄ¸´ÊıÏòÁ¿  
+    // ç”Ÿæˆä¸€ä¸ªæ— åºçš„å¤æ•°å‘é‡  
     for (int i = 0; i < SAMPLE_NUMBER; ++i) {
         Complex rc = randomcomp(-10.0, 10.0);
-        cv.insert(rc); // Ê¹ÓÃ push_back ¶ø²»ÊÇ insert  
+        cv.insert(rc); // ä½¿ç”¨ push_back è€Œä¸æ˜¯ insert  
     }
     cout << "The original complex vector is :" << endl;
     cv.print();
     cout << endl;
-    // ÖÃÂÒ
+    // ç½®ä¹±
     Vector<Complex> uncv = cv;
     uncv.unsort();
-    cout << "ÖÃÂÒ :" << endl;
+    cout << "ç½®ä¹± :" << endl;
     uncv.print();
     cout << endl;
-    // ²éÕÒ
-    cout << "²éÕÒ :" << endl;
+    // æŸ¥æ‰¾
+    cout << "æŸ¥æ‰¾ :" << endl;
     cout<<cv.find(Complex(1.02,2.12))<<endl;
     cout << endl;
-    //²åÈë
-    cout << "²åÈë :" << endl;
+    //æ’å…¥
+    cout << "æ’å…¥ :" << endl;
     Vector<Complex> icv = cv;
     icv.insert(3, Complex(1, 4));
     icv.print();
     cout << endl;
-    //É¾³ı
-    cout << "É¾³ıÇø¼äÔªËØ :" << endl;
+    //åˆ é™¤
+    cout << "åˆ é™¤åŒºé—´å…ƒç´  :" << endl;
     Vector<Complex> rcv2 = cv;
     rcv2.remove(2,9);
     rcv2.print();
     cout << endl;
-    //Î¨Ò»»¯
-    cout << "Î¨Ò»»¯ :" << endl;
+    //å”¯ä¸€åŒ–
+    cout << "å”¯ä¸€åŒ– :" << endl;
     Vector<Complex> ucv2 = cv;
     ucv2.uniquify();
     ucv2.print();
     cout << endl;
-    //ÂÒĞò
-    cout << "ÂÒĞòµÄÊ±¼ä :" << endl;
+    //ä¹±åº
+    cout << "ä¹±åºçš„æ—¶é—´ :" << endl;
     Vector<Complex> lcv = cv;
     test_time(lcv);
     cout << endl;
-    //Ë³Ğò
-    cout << "Ë³ĞòµÄÊ±¼ä :" << endl;
+    //é¡ºåº
+    cout << "é¡ºåºçš„æ—¶é—´ :" << endl;
     Vector<Complex> scv = cv;
     test_time(scv);
     cout << endl;
-    //ÄæĞò
-    cout << "ÄæĞòµÄÊ±¼ä :" << endl;
+    //é€†åº
+    cout << "é€†åºçš„æ—¶é—´ :" << endl;
     Vector<Complex> ncv = cv;
     ncv.reverse();
     test_time(ncv);
     cout << endl;
-    //Çø¼ä²éÕÒ
-    cout << "Çø¼ä²éÕÒ :" << endl;
+    //åŒºé—´æŸ¥æ‰¾
+    cout << "åŒºé—´æŸ¥æ‰¾ :" << endl;
     Vector<Complex> mcv = cv;
     mcv.sort();
     double m1 = mcv[3].getmodulus();

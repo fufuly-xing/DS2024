@@ -1,9 +1,10 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "HuffTree.h"
 #include <iostream>
 #include <unordered_map>
 #include <cstring>
 
-// ¼ÙÉèÎÒÃÇµÄ×Ö·û¼¯ÊÇ 26 ¸ö×ÖÄ¸£¬´óĞ¡Ğ´²»Çø·Ö
+// å‡è®¾æˆ‘ä»¬çš„å­—ç¬¦é›†æ˜¯ 26 ä¸ªå­—æ¯ï¼Œå¤§å°å†™ä¸åŒºåˆ†
 #define N_CHAR 26
 
 std::unordered_map<char, std::string> huffmanTable;
@@ -35,38 +36,38 @@ int* statistics(char* sample_text_file) {
 void travPre_R(BinNodePosi(HuffChar) x, std::string code = "") {
     if (!x) return;
 
-    // Ò¶×Ó½Úµã£¬´æ´¢±àÂë
+    // å¶å­èŠ‚ç‚¹ï¼Œå­˜å‚¨ç¼–ç 
     if (!x->lc && !x->rc) {
         huffmanTable[x->data.ch] = code;
         return;
     }
 
-    // ¼ÌĞøµİ¹é±éÀú×ó×ÓÊ÷ºÍÓÒ×ÓÊ÷
+    // ç»§ç»­é€’å½’éå†å·¦å­æ ‘å’Œå³å­æ ‘
     if (x->lc) travPre_R(x->lc, code + '0');
     if (x->rc) travPre_R(x->rc, code + '1');
 }
 
 int main() {
-    char file[45] = "dream.txt";  // ¼ÙÉè dream.txt ´æÔÚ
-    int* freq = statistics(file);  // Í³¼ÆÎÄ¼şÖĞ¸÷×Ö·ûµÄ³öÏÖÆµÂÊ
+    char file[45] = "dream.txt";  // å‡è®¾ dream.txt å­˜åœ¨
+    int* freq = statistics(file);  // ç»Ÿè®¡æ–‡ä»¶ä¸­å„å­—ç¬¦çš„å‡ºç°é¢‘ç‡
     HuffForest* forest = initForest(freq); delete freq;
     HuffTree* tree = generateTree(forest); delete forest;
 
-    // ³õÊ¼»¯±àÂë±í
-    travPre_R(tree->root());  // ¸ù¾İ Huffman Ê÷Éú³É±àÂë±í
+    // åˆå§‹åŒ–ç¼–ç è¡¨
+    travPre_R(tree->root());  // æ ¹æ® Huffman æ ‘ç”Ÿæˆç¼–ç è¡¨
 
-    std::cout << "¹ş·òÂü±àÂë±íÎª:" << std::endl;
+    std::cout << "å“ˆå¤«æ›¼ç¼–ç è¡¨ä¸º:" << std::endl;
     for (const auto& i : huffmanTable) {
         std::cout << i.first << ": " << i.second << std::endl;
     }
 
-    // ¶Ô "dream" ºÍ "my" ½øĞĞ±àÂë
+    // å¯¹ "dream" å’Œ "my" è¿›è¡Œç¼–ç 
     std::string words[] = { "dream", "my" };
     for (const auto& word : words) {
-        std::cout << word << " µÄ¹ş·òÂü±àÂëÎª: ";
+        std::cout << word << " çš„å“ˆå¤«æ›¼ç¼–ç ä¸º: ";
         for (char ch : word) {
-            ch = tolower(ch);  // ×ª»»ÎªĞ¡Ğ´×ÖÄ¸
-            std::cout << huffmanTable[ch] << " ";  // Êä³öÃ¿¸ö×Ö·ûµÄ¹ş·òÂü±àÂë
+            ch = tolower(ch);  // è½¬æ¢ä¸ºå°å†™å­—æ¯
+            std::cout << huffmanTable[ch] << " ";  // è¾“å‡ºæ¯ä¸ªå­—ç¬¦çš„å“ˆå¤«æ›¼ç¼–ç 
         }
         std::cout << std::endl;
     }
